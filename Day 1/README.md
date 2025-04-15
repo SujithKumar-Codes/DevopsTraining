@@ -36,3 +36,16 @@ docker container start <id>
 
 # Clean up stopped containers
 docker container prune
+
+FROM openjdk:17
+COPY target/app.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+docker build -t yourname/app .
+
+# Create volume
+docker volume create mydata
+
+# Use it in container
+docker run -it --rm -v mydata:/data ubuntu
